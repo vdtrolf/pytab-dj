@@ -12,6 +12,17 @@
       <a href="{% url 'home' %}">Home</a> |
       <a href="{% url 'about' %}">About</a>
     </header>
+    {% if user.is_authenticated %}
+        <p>Hi {{ user.username }}!</p>
+        <p><form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">logout</button>
+        </form></p>
+    {% else %}
+        <p>You are not logged in.</p>
+        <p><a href="{% url 'login' %}">Log In</a></p>
+        <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
     <div>
       {% block content %}
       {% endblock content %}
